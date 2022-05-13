@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<script>
+    function Activate_Filter(){
+        //let data = document.getElementById("i_d").value;
+        //const us_id = [];
+        const game = [{name:'kyungsoo',addr:'seoul',phone:'010'},
+                    {name:'kyungsu',addr:'psy',phone:'011'},
+                    {name:'kyungsick',addr:'bog',phone:'000'}];
+        let see = document.getElementById("i_d").value;
+
+        for(i = 0; i<game.length; i++){
+            if(game[i][0] == see){
+                document.write("찾음");
+                return true;
+            }
+            else{
+                if(i==game.length-1){
+                    document.write("억까ㄴ");
+                    return false;
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body>
+    <form method="POST" action="h.php" onsubmit="return Activate_Filter();">
+        <input type="text" name="i_d" id="i_d"><br>
+        <input type="submit" value="전송">
+        </form>    
+        
+</body>
+</html>
