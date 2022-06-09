@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아 하기싫다~</title>
+  <style>
+    input[type=text]{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type=date]{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type=password]{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type=number]{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type=button]{
+        width: 49%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type=button]:hover {
+        background-color: #45a049;
+    }
+    label[for]{
+        text-align: center;
+    }
+    h1{
+      text-align: center;
+    }
+    table{
+      border: 1px solid #45a049;
+      border-radius: 5px;
+      padding: 5px;
+      text-align: center;
+    }
+    .tables{
+      padding-left: 30%;
+      padding-right: 30%;
+      animation: tables 0.02s infinite;
+    }
+    .loading{
+    width: 100%;
+    height: 200px;
+    position: relative;
+}
+.loading span{
+    position: absolute;
+    /*부모를 주지않았기 때문에 absolute는 자식요소로서
+    body에 적용이 된다.*/
+    text-align: center;
+    font-weight: bold;
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    top: 0%;
+    left: 0;
+    background-color: lightpink;
+    animation: loading 2s infinite;
+} 
+
+@keyframes loading{
+    0%{
+        top: 0;
+        left: 0;
+        transform: translate(-50%,-50%) rotate(0);
+        background-color: lightblue;
+    }
+    10%{
+        top: 100%;
+        left: 10%;
+        transform: translate(-50%,-50%) rotate();
+        background-color: lightblue;
+    }
+    20%{
+        top: 0;
+        left: 20%;
+        transform: translate(-50%,-50%) rotate();
+        background-color: lightblue;
+    }
+    30%{
+        top: 100%;
+        left: 30%;
+        transform: translate(-50%,-50%) rotate();
+        background-color: lightblue;
+    }
+    40%{
+        top: 0;
+        left: 40%;
+        transform: translate(-50%,-50%) rotate();
+    }
+    50%{
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-50%) rotate();
+    }
+    60%{
+        top: 0;
+        left: 60%;
+        transform: translate(-50%,-50%) rotate();
+    }
+    70%{
+        top: 100%;
+        left: 70%; 
+        transform: translate(-50%,-50%) rotate();
+    }
+    80%{
+        top: 0;
+        left: 80%;
+        transform: translate(-50%,-50%) rotate();
+    }
+    90%{
+        top: 100%;
+        left: 90%;
+        transform: translate(-50%,-50%) rotate();
+    }
+    100%{
+        top: 0;
+        left: 100%;
+        transform: translate(-50%,-50%)rotate(360deg);
+    }
+}
+@keyframes tables{
+    0%{
+      padding-left: 30%;
+      padding-right: 30%;
+    }
+    100%{
+      padding-left: 40%;
+      padding-right: 40%;
+    }
+}
+</style>
+</head>
+<body>
+  <div class="loading">
+    <span><br><br>물 품 관 리</span>
+  </div>
+  <div class ="main"style="padding-left: 30%;padding-right: 30%;padding-top: 10%;">
+  <form>
+      <label for="name">물건이름</label><br>
+      <input type="text" id="name" name="name" placeholder="물건이름"><br>
+      <label for="price">물건가격</label><br>
+      <input type="number" id="price" name="price"placeholder="가격"><br>
+      <label for="made">제조사 이름</label><br>
+      <input type="text" id="made" name="made"placeholder="제조사 이름"><br>
+      <label for="usebydate">유통기한</label><br>
+      <input type="date" id="usebydate" name="usebydate"><br>
+      <input type="button" onclick="save()" value="저장">
+      <input type="button" onclick="load()" value="출력">
+    </form>
+  </div>
+    <div class="tables" id="tables">
+    </div>
+
+  <script defer>
+    const articleArray =new Array();
+
+    function save(){
+      let name = document.getElementById('name').value;
+      let price = document.getElementById('price').value;
+      let made = document.getElementById('made').value;
+      let usebydate = document.getElementById('usebydate').value;
+      if(name==''||price==''||made==''||usebydate==''){
+        alert("입력하지 않은 칸이 있습니다.");
+        return false;
+      }else{
+        var Newarray = new Array();
+        Newarray.push(name,price,made,usebydate);
+        articleArray.push(Newarray);
+      }
+      console.log(Newarray);
+      console.log(articleArray);
+    }
+    function load(){
+      document.getElementById("tables").innerHTML="";
+      let str="<table><tr><th>물건이름</th><th>물건가격</th><th>제조사이름</th><th>유통기한</th></tr>";
+        for(var i=0; i<articleArray.length; i++){  
+          str+='<tr><td>'+articleArray[i][0]
+          +'</td><td>'+articleArray[i][1]+'</td><td>'+articleArray[i][2]+'</td><td>'+articleArray[i][3]+'</td></tr>';
+        }
+        str+="</table>";
+        document.getElementById("tables").innerHTML=str;
+    }
+    
+  </script>
+  <script src="script/jquery-3.6.0.min.js"></script>
+</body>
+</html>
